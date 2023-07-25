@@ -1,0 +1,30 @@
+﻿@using BeanSceneReservationApplication.Models.ReservationModel;
+@model ReservationVM
+
+
+@{
+    ViewData["Title"] = "Bean Scene - Confirmation";
+}
+
+<section class="singlePageSectionOuter">
+    <div class="singlePageSectionInner text-center">
+        <h3>Thank you for booking with Bean Scene!</h3>
+        <h5>A confirmation email has been sent to @Model.Reservation.Person.Email</h5>
+        <h5>Please review the details of your reservation below.</h5>
+        <div class="p-1 bg-white bg-opacity-75 rounded">
+            @if (Model.Reservation.PersonName != null)
+            {
+                <p class="fw-bold">Reservation for @Model.Reservation.PersonName</p>
+            }
+            else
+            {
+                <p class="fw-bold">Reservation for @Model.Reservation.Person.Name</p>
+            }
+            <p class="fw-bold">@Model.Sitting.Name</p>
+            <p class="fw-bold">@Model.Reservation.StartTime.DayOfWeek @Model.Reservation.StartTime.ToString("hh:mm tt"), @Model.Reservation.StartTime.ToString("MMM dd yyyy")</p>
+            <p class="fw-bold">@Model.Reservation.Duration mins</p>
+            <p class="fw-bold">@Model.Reservation.Guests guests</p>          
+        </div>
+        <a class="btn btn-outline-primary my-2" href="~/Index">Back to Home</a>
+    </div>
+</section>

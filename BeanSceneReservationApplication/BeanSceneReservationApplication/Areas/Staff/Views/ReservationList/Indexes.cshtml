@@ -1,0 +1,50 @@
+﻿<button id="BackBtn" class="btn btn-secondary my-2">Back to Calendar</button>
+
+<div class="bg-body bg-opacity-75 p-3 rounded my-2">
+    <table id="myTable" class="display">
+        <thead>
+            <tr>
+                <th>Reservation Name</th>
+                <th>Guests</th>
+                <th>Start Time</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Source</th>
+                <th>Phone No.</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Reservation Name</th>
+                <th>Guests</th>
+                <th>Start Time</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Source</th>
+                <th>Phone No.</th>
+                <th>Email</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/data-table/dist/datatables.css" />
+    <style>
+        td {
+            text-align: center;
+        }
+
+        th {
+            text-align: center;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="~/lib/data-table/dist/datatables.js"></script>
+    <script src="~/js/staff.reservationlist.indexes.js"></script>
+}

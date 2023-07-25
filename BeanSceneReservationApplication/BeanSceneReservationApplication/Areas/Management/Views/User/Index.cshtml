@@ -1,0 +1,56 @@
+﻿@using BeanSceneReservationApplication.Areas.Management.Models;
+@model List<UserVM>
+
+@{
+    ViewData["Title"] = "Users Menu";
+}
+
+<h1>Users Menu</h1>
+<div class="my-2">
+    <a href="~/Management/User/AddUser" class="btn btn-primary">Add New User</a>
+</div>
+
+
+<!-- User details and role modification table, logic in js file -->
+<div class="bg-body bg-opacity-75 p-3 rounded my-2">
+    <table id="usersTable" class="display">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>New Role</th>
+                <th>Submit</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td id="role-@user.Email">@user.Role</td>
+                    <td>
+                        <select name="selectRole" class="form-control">
+                            <option value="Manager">Manager</option>
+                            <option value="Staff">Staff</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-secondary" onclick="updateRole('@user.Email', this.parentNode.previousElementSibling.querySelector('select[name=selectRole]').value)">Submit Role Change</button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<!-- CDN files below for the DataTables plugin used for the users table -->
+@section Styles {
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/b-2.3.6/datatables.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/b-2.3.6/datatables.min.js"></script>
+    <script src="~/js/management.user.index.js"></script>
+}

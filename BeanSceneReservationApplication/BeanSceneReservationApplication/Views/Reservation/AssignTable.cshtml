@@ -1,0 +1,21 @@
+﻿@using BeanSceneReservationApplication.Models.ReservationModel
+@model EditReservationVM
+@{
+    ViewData["Title"] = "Assign Table";
+}
+<form asp-controller="Reservation" asp-action="CheckAssign" method="post">
+
+    <input type="hidden" asp-for="@Model.Reservation.Id"/>
+    @for (int i = 0; i < Model.TableInfos.Count(); i++)
+    {
+        var color = (Model.ReservedTableIds.Contains(Model.TableInfos[i].TableId)) ? "red" : "purple";
+
+        <label style="padding:10px; margin:10px;border:1px solid @color;">
+            <span>Table: @Model.Tables[i].Name</span>
+            <input type="hidden" asp-for="@Model.TableInfos[i].TableId" />
+            <input type="checkbox" asp-for="@Model.TableInfos[i].Selected" />
+        </label>
+    }
+
+    <input type="submit" value="Submit" asp-action="CheckAssign" />
+</form>

@@ -1,0 +1,30 @@
+﻿@using BeanSceneReservationApplication.Data
+@model Reservation
+@{
+    ViewData["Title"] = "Select Edit Action";
+}
+
+<h1>Select Edit Action</h1>
+<h3>Name: @Model.Person.Name</h3>
+<h3>Start Time: @Model.StartTime</h3>
+<h4>Status: @Model.Status.Name</h4>
+<p>Phone: @Model.Person.Phone</p>
+<p>Email: @Model.Person.Email</p>
+<p>Duration: @Model.Duration</p>
+<p>Notes: @Model.Notes</p>
+@{
+    var tables = "";
+    foreach(var item in Model.AssignedTables)
+    {
+        tables += item.Name + " ";
+    }
+}
+
+<p>Tables: @tables</p>
+
+<form>
+    <button><a asp-controller="Home" asp-action="Index">Go Back</a></button>
+    <button><a href="~/BeanScene/@Model.Id/Edit">Edit</a></button>
+    <button><a href="~/BeanScene/@Model.Id/Cancel">Cancel Reservation</a></button>
+    <button><a href="~/BeanScene/@Model.Id/AssignTable">Assign Table</a></button>
+</form>

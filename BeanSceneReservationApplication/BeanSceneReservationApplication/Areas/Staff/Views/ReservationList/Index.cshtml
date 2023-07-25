@@ -1,0 +1,371 @@
+﻿<button id="BackBtn" class="btn btn-secondary m-2">Back to Calendar</button>
+
+<button id="CreateModalBtn" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#CreateModal">Create Reservation</button>
+
+<button class="btn btn-danger m-2" data-bs-toggle="modal" data-bs-target="#DeleteAllModal">DELETE ALL</button>
+
+<div class="modal fade" id="CreateModal" tabindex="-1" aria-labelledby="CreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="CreateForm">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="CreateModalLabel">Reservation Form</h1>
+                <button type="button" class="btn-close my-2" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Guest Name:<input type="text" id="rName" required/></p>
+                <p>Guest Phone:<input type="tel" id="rPhone" required /></p>
+                <p>Guest Email:<input type="email" id="rEmail" required /></p>
+                <p>Duration:<input type="number" step="15" min="15" max="720" id="rDuration" required /> minutes</p>
+                <p>No. of Guests:<input type="number" min="1" id="rGuests" required /><span id="leftCapacity"></span></p>
+                <p>Start Time:<input type="datetime-local" step="900" id="rStartTime" required /></p>
+                <p>Sitting Trade Time:</p>
+                <p id="rSittingTime"></p>
+                <select class="form-select" id="rSourceName">
+
+                </select>
+
+                <p>Notes if you want</p><input type="text" id="rNotes" />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary my-2" data-bs-dismiss="modal">Close</button>
+                <button id="CreateBtn" type="submit" class="btn btn-primary my-2">Create</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="EditForm">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="EditModalLabel">Edit Reservation Form</h1>
+                    <button type="button" class="btn-close my-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Guest Name:<input type="text" id="eName" required /></p>
+                    <p>Guest Phone:<input type="tel" id="ePhone" required /></p>
+                    <p>Guest Email:<input type="email" id="eEmail" required /></p>
+                    <p>Duration:<input type="number" step="15" min="15" max="720" id="eDuration" required /> minutes</p>
+                    <p>No. of Guests:<input type="number" min="1" id="eGuests" required /><span id="leftCapacity2"></span></p>
+                    <p>Start Time:<input type="datetime-local" step="900" id="eStartTime" required /></p>
+                    <p>Sitting Trade Time:</p>
+                    <p id="eSittingTime"></p>
+                    <select class="form-select" id="eSourceName">
+                    </select>
+
+                    <p>Notes if you want</p><input type="text" id="eNotes" />
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary my-2" data-bs-dismiss="modal">Close</button>
+                    <button id="EditBtn" type="submit" class="btn btn-primary my-2">Change</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="DeleteModalLabel">Delete Confirmation</h1>
+                <button type="button" class="btn-close my-2" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3 style="color:red">Do you really want to DELETE it?</h3>
+                <button id="DeleteBtn" class="btn btn-danger my-2" data-bs-dismiss="modal">Delete</button>
+                <button class="btn btn-secondary my-2" data-bs-dismiss="modal">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteAllModal" tabindex="-1" aria-labelledby="DeleteAllModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="DeleteAllModalLabel">Delete Confirmation</h1>
+                <button type="button" class="btn-close my-2" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3 style="color:red">Do you really want to DELETE ALL RESERVATIONS?</h3>
+                <button id="DeleteAllBtn" class="btn btn-danger my-2" data-bs-dismiss="modal">Delete</button>
+                <button class="btn btn-secondary my-2" data-bs-dismiss="modal">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="TableModal" tabindex="-1" aria-labelledby="TableModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <form id="TableForm" method="post">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="TableModalLabel">Tables</h1>
+                    <button type="button" class="btn-close my-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="Tables" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary my-2" data-bs-dismiss="modal">Close</button>
+                    <input id="TableBtn" type="submit" class="btn btn-primary my-2" value="Assign" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="bg-body bg-opacity-75 p-3 rounded my-2">
+    <table id="myTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Reservation Name</th>
+                <th>Guests</th>
+                <th>Start Time</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Reservation Name</th>
+                <th>Guests</th>
+                <th>Start Time</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/lib/data-table/dist/datatables.css" />
+    <style>
+        td {
+            text-align: center;
+        }
+        th {
+            text-align: center;
+        }
+    </style>
+}
+
+@section Scripts {  
+    <script src="~/lib/data-table/dist/datatables.js"></script>
+    <script src="~/js/staff.reservationlist.index.js"></script>
+    <script>
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+        const sittingId = params.get("id")
+
+        let selectedId;
+        function setId(Id){
+            selectedId = Id;
+        }
+        
+        function setEditModal(Id){
+            selectedId = Id;
+            let LeftCapacity = 0;
+            fetch(`/api/reservations/get/sitting/${sittingId}`)
+            .then(res=>{return res.json()})
+            .then(jsonData=> {
+                LeftCapacity = jsonData.capacity;
+                $('#eStartTime').attr({
+                    "max": jsonData.end,
+                    "min": jsonData.start
+                });
+
+                let StartDay = jsonData.start.slice(0, 10);
+                let StartTime = jsonData.start.slice(11, 16);
+                let EndDay = jsonData.end.slice(0, 10);
+                let EndTime = jsonData.end.slice(11, 16);
+                $('#eSittingTime').html(`${StartDay} ${StartTime} ~ ${EndDay} ${EndTime}`);
+
+                return fetch(`/api/reservations/get/source`);
+            })
+            .then(res => { return res.json() })
+            .then(jsonData => {
+                    $('#eSourceName').empty();
+                    for (let i = 0; i < jsonData.length; i++) {
+                        $('#eSourceName').append(`<option value="${jsonData[i].name}" >${jsonData[i].name}</option>`)
+                    }
+                    return  fetch(`/api/reservations/get/reservation/${selectedId}`)
+            })
+            .then(res => { return res.json() })
+            .then(jsonData => {
+                $("#eName").val(jsonData.name);
+                $('#ePhone').val(jsonData.phone);
+                $("#eEmail").val(jsonData.email);
+                $("#eDuration").val(jsonData.duration);
+                $("#eGuests").val(jsonData.guests);
+                $("#eStartTime").val(jsonData.startTime);
+                $("#eSourceName").val(jsonData.sourceName);
+                $("#eNotes").val(jsonData.notes);
+                
+                LeftCapacity += jsonData.guests;
+
+                $('#leftCapacity2').html(`${LeftCapacity} seats left`);
+
+                $("#eGuests").attr({
+                    "max": LeftCapacity,
+                    "min": 1
+                });
+            });
+        }
+
+        $('#EditForm').on("submit", function (e) {
+            e.preventDefault();
+
+            const CreateReservationVM = {
+                Name: $("#eName").val(),
+                Phone: $('#ePhone').val(),
+                Email: $("#eEmail").val(),
+                Duration: $("#eDuration").val(),
+                Guests: $("#eGuests").val(),
+                StartTime: $("#eStartTime").val(),
+                SourceName: $("#eSourceName").val(),
+                Notes: $("#eNotes").val(),
+            };
+            fetch(`/api/reservations/edit/${selectedId}`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(CreateReservationVM)
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                }
+            })
+        });
+        
+        let NoTables = [];
+        function setTableModal(Id){
+            selectedId = Id;
+            fetch(`/api/reservations/${selectedId}/get/tables/${sittingId}`)
+            .then(res=>{return res.json()})
+            .then(jsonData=> {
+                $("#Tables").empty();
+                for(let a = 0; a < jsonData.length; a++){
+                    NoTables[a] = 0;
+                        $("#Tables").append(
+                            `<tr>`+
+                                `<th id="row${a}" >${jsonData[a].name}</th>`+
+                            `<tr>`
+                        )
+                        for (let i = 0; i < jsonData[a].tableVMs.length; i++) {
+                            NoTables[a]++;
+                            if (jsonData[a].tableVMs[i].assigned == true) {
+                                $(`#row${a}`).append(
+                                    `<td>`+
+                                        `<label style="padding:10px; margin:10px;border:1px solid red" >` +
+                                            `<span>Table: ${jsonData[a].tableVMs[i].name}</span>` +
+                                            `<input id="area${a}" type="hidden" value="${jsonData[a].name}" />` +
+                                            `<input id="${a}id${i}" type="hidden" value="${jsonData[a].tableVMs[i].id}" />` +
+                                            `<input id="${a}name${i}" type="hidden" value="${jsonData[a].tableVMs[i].name}" />` +
+                                            `<input id="${a}checked${i}" type="checkbox" disabled="disabled" />` +
+                                        `</label>`+
+                                    `</td>`
+                                )
+                            } else {
+                                $(`#row${a}`).append(
+                                    `<td>` +
+                                        `<label style="padding:10px; margin:10px;border:1px solid green" >` +
+                                            `<span>Table: ${jsonData[a].tableVMs[i].name}</span>` +
+                                            `<input id="area${a}" type="hidden" value="${jsonData[a].name}" />` +
+                                            `<input id="${a}id${i}" type="hidden" value="${jsonData[a].tableVMs[i].id}"/>` +
+                                            `<input id="${a}name${i}" type="hidden" value="${jsonData[a].tableVMs[i].name}"/>` +
+                                            `<input id="${a}checked${i}" type="checkbox" />` +
+                                        `</label>`+
+                                    `</td>`
+                                )
+                            }
+                        }
+                }
+            });
+        };
+
+        $("#TableForm").on("submit", function (e) {
+            e.preventDefault();
+
+            const AreaVMs = [];
+            let minChecker = false;
+            for(let a = 0; a < NoTables.length; a++){
+                const Tables = [];
+                for (let i = 0; i < NoTables[a]; i++) {
+                    if ($(`#${a}checked${i}`).prop('checked') == true) {
+                        minChecker = true;
+                    };
+
+                    let Table = {
+                        Id: $(`#${a}id${i}`).val(),
+                        Name: $(`#${a}name${i}`).val(),
+                        Assigned: $(`#${a}checked${i}`).prop('checked')
+                    };
+                    Tables[i] = Table;
+                };
+
+                AreaVM = {
+                    Name: $(`#area${a}`).val(),
+                    TableVMs: Tables
+                };
+                AreaVMs[a] = AreaVM;
+            };
+
+            if(minChecker){
+                fetch(`/api/reservations/edit/table/${selectedId}`, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(AreaVMs)
+                }).then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                });
+            }else{
+                alert("Please check at least one checkbox")
+            }
+
+        })
+        
+        $('#DeleteBtn').click((e)=>{
+            e.preventDefault();
+            fetch(`/api/reservations/delete/${selectedId}`)
+            .then(response=>{
+                if(response.ok){
+                     location.reload();
+                }
+            })
+        })
+
+        function updateStatus(id) {
+            fetch(`/api/reservations/status/${id}`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({ Name: $(`#select-${id}`).val() })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    }
+                }).catch(error => {
+                    alert("Unable to update reservation status, please contact an administrator");
+                });
+        }
+    </script>
+}

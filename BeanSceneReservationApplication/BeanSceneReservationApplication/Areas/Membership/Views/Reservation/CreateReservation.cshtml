@@ -1,0 +1,127 @@
+﻿@using BeanSceneReservationApplication.Models.ReservationModel;
+@model ReservationVM
+
+
+@{
+    ViewData["Title"] = "Bean Scene - Make a Reservation";
+}
+
+
+@{
+    string modelJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+}
+
+<script>
+    window.modelData = @Html.Raw(modelJson);
+</script>
+
+@* Container for the calendar, customers select an available sitting from the calendar to progress *@
+<section class="singlePageSectionOuter" id="calendarContainer">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto">
+                <div class="singlePageSectionInner">
+                    <div class="bg-body bg-opacity-50 rounded p-2">
+                        <p class="text-center">Please select a sitting from the calendar below.</p>
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* Modal created when a sitting from the calendar is selected *@
+<div class="modal fade" id="sittingModal" tabindex="-1" aria-labelledby="SittingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="SittingModalLabel">Sitting Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Sitting: <span id="title"></span></p>
+                <p>Date: <span id="date"></span></p>
+                <p>Time: <span id="time"></span></p>
+                <p>Seats Remaining: <span id="seatsRemaining"></span></p>
+                <input type="hidden" id="sittingId" value="">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="selectButton" data-bs-dismiss="modal">Select</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="singlePageSectionOuter" id="formContainer" style="display:none">
+    <div class="singlePageSectionInner">
+        @using (Html.BeginForm("CreateReservation", "Reservation", FormMethod.Post, new { area = "Membership", id = "reservationForm", @class = "form" }))
+        {
+            <div class="text-center">
+                <h6>You are booking for the following sitting:</h6>
+                @if (Model != null)
+                {
+                    <p class="p-0 m-0" id="sittingNameDisplay">@Model.Sitting.Name</p>
+                    <p class="p-0 m-0" id="sittingTimeDisplay">@Model.Sitting.StartTime..ToString("ddd MMM dd yyyy") @Model.Sitting.StartTime.ToString("HH:mm") ~ @Model.Sitting.EndTime.ToString("HH:mm")</p>
+                    <p class="p-0 m-0 mb-2" id="sittingSeatsDisplay">@ViewData["SeatsRemaining"] seats remain</p>
+                } 
+                else
+                {
+                    <p class="p-0 m-0" id="sittingNameDisplay"></p>
+                    <p class="p-0 m-0" id="sittingTimeDisplay"></p>
+                    <p class="p-0 m-0 mb-2" id="sittingSeatsDisplay"></p>
+                }
+                <input id="changeSittingButton" value="Change Sitting" class="btn btn-outline-secondary my-2" readonly />
+            </div>
+@*            @Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reservation.Person.Name, "Booking Name")
+                @Html.EditorFor(model => model.Reservation.Person.Name, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "50" } })
+                @Html.ValidationMessage("Reservation.Person.Name", "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reservation.Person.Email)
+                @Html.EditorFor(model => model.Reservation.Person.Email, new { htmlAttributes = new { @class = "form-control", required = "required", type = "email", maxlength = "60" } })
+                @Html.ValidationMessage("Reservation.Person.Email", "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reservation.Person.Phone, "Phone No.")
+                @Html.EditorFor(model => model.Reservation.Person.Phone, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "20" } })
+                @Html.ValidationMessage("Reservation.Person.Phone", "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reservation.StartTime, "Reservation Start Time")
+                @Html.TextBoxFor(model => model.Reservation.StartTime, "{0:HH:mm}", new { @class = "form-control", type = "time", id = "startTimeInput", required = "required", })
+                @Html.ValidationMessage("Reservation.StartTime", "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reservation.Duration, "Reservation Duration (mins)")
+                @Html.TextBoxFor(model => model.Reservation.Duration, new { @class = "form-control", type = "number", step = "15", required = "required", })
+                @Html.ValidationMessage("Reservation.Duration", "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reservation.Guests, "No. of Guests")
+                @Html.TextBoxFor(model => model.Reservation.Guests, new { @class = "form-control", type = "number", required = "required", })
+                @Html.ValidationMessage("Reservation.Guests", "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reservation.Notes)
+                @Html.EditorFor(model => model.Reservation.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessage("Reservation.Notes", "", new { @class = "text-danger" })
+            </div>
+
+            @Html.HiddenFor(model => model.Sitting.Id)
+            <input type="submit" value="Submit" class="btn btn-primary my-2" readonly />
+
+        }
+    </div>
+</section>
+
+
+
+@section Scripts {
+    <script src="~/lib/full-calender/dist/index.global.min.js"></script>
+    <script src="~/js/membership.reservation.index.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+}

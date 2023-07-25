@@ -1,0 +1,19 @@
+﻿@using BeanSceneReservationApplication.Data
+@model IEnumerable<Reservation>
+@{
+    ViewData["Title"] = "Select Reservation";
+}
+
+<h1>Edit Reservation</h1>
+
+@foreach(var r in Model){
+    <div style="border:1px solid green; padding:5px; margin:5px">
+        <h3>Name: @r.Person.Name</h3>
+        <h4>@r.StartTime</h4>
+        <p>Number of people: @r.Guests</p>
+        <p>Duration: @r.Duration</p>
+        <p>Status: @r.Status.Name</p>
+        <a href="~/BeanScene/@r.Id/SelectEditAction">Select</a>
+    </div>
+
+}

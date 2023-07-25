@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeanSceneReservationApplication", "BeanSceneReservationApplication\BeanSceneReservationApplication.csproj", "{7BF5F58A-7BAE-422A-9CAF-FCAC257AF0B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D90F02A-C393-4CC9-A739-B45D7FD86680}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BF5F58A-7BAE-422A-9CAF-FCAC257AF0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BF5F58A-7BAE-422A-9CAF-FCAC257AF0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BF5F58A-7BAE-422A-9CAF-FCAC257AF0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BF5F58A-7BAE-422A-9CAF-FCAC257AF0B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C01DCEF3-F0FE-44F1-9E68-DBC59F7E3C46}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/jorgepalma
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = BeanSceneReservationApplication\\BeanSceneReservationApplication.csproj
+		SccProjectName1 = BeanSceneReservationApplication
+		SccLocalPath1 = BeanSceneReservationApplication
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,35 @@
+﻿<button id="ViewAllBtn" class="btn btn-primary my-2">View All Reservations</button>
+
+<div class="modal fade" id="SittingModal" tabindex="-1" aria-labelledby="SittingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="SittingModalLabel">Sitting Details</h1>
+                    <button type="button" class="btn-close my-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Title: <span id="title"></span></p>
+                    <p>Date: <span id="date"></span></p>
+                    <p>Time: <span id="time"></span></p>
+                    <p>Capacity: <span id="capacity"></span></p>
+
+                <input type="checkbox" class="btn-check" id="active" autocomplete="off" disabled="disabled">
+                    <label class="btn btn-outline-primary" for="active">Active</label>
+
+                    <p>Reservation: <span id="reservations"></span></p>
+                    <button id="ViewBtn" class="btn btn-primary my-2">View Reservation</button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary my-2" data-bs-dismiss="modal">Close</button>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<div id='calendar' class="bg-body bg-opacity-75 p-3 rounded my-2"></div>
+
+@section Scripts{
+    <script src="~/lib/full-calender/dist/index.global.js"></script>
+    <script src="~/js/staff.calendar.index.js"></script>
+}

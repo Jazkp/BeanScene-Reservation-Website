@@ -1,0 +1,43 @@
+﻿@model BeanSceneReservationApplication.Models.ReservationModel.ReservationVM
+@{
+    ViewData["Title"] = "BeanScene Edit Reservation";
+}
+
+<div>
+    @{
+        var currentCapacity = Model.Sitting.Capacity;
+        foreach (var n in Model.Sitting.Reservations)
+        {
+            if (n.Status.Id != 3 && n.Id != Model.Reservation.Id)
+            {
+                currentCapacity -= n.Guests;
+            }
+        }
+    }
+
+    <form asp-controller="Home" asp-action="CheckEditReservation" method="post">
+
+        <input type="hidden" asp-for="@Model.Sitting.Id" value="@Model.Sitting.Id"/>
+        <input type="hidden" asp-for="@Model.Reservation.Id" value="@Model.Reservation.Id"/>
+        <input type="hidden" asp-for="@Model.Reservation.Status.Id" value="@Model.Reservation.Status.Id" />
+        
+        <p>Guest Name:<input type="text" asp-for="@Model.Reservation.Person.Name" value="@Model.Reservation.Person.Name" required /></p>
+        <p>Guest Phone:<input type="tel" asp-for="@Model.Reservation.Person.Phone" value="@Model.Reservation.Person.Phone" required /></p>
+        <p>Guest Email:<input type="email" asp-for="@Model.Reservation.Person.Email" value="@Model.Reservation.Person.Email" required /></p>
+        <p>Duration:<input type="number" min="15" max="720" asp-for="@Model.Reservation.Duration" value="@Model.Reservation.Duration" required /> minutes</p>
+        <p>How many Guests:<input type="number" min="1" max="@currentCapacity" asp-for="@Model.Reservation.Guests" value="@Model.Reservation.Guests" required /><span>@currentCapacity seats left</span></p>
+        <p>Start Time:<input type="datetime-local" step="900" min=@Model.Sitting.StartTime.ToString("yyyy-MM-ddTHH:mm") max=@Model.Sitting.EndTime.ToString("yyyy-MM-ddTHH:mm") asp-for="@Model.Reservation.StartTime" required /></p>
+
+        <select class="form-select" asp-for=@Model.Reservation.Source.Id value="@Model.Reservation.Source.Name">
+            <option value="1" selected>Online</option>
+            <option value="2">Mobile</option>
+            <option value="3">In-person</option>
+            <option value="4">Email</option>
+            <option value="5">Phone</option>
+        </select>
+
+        <p>Notes if you want</p><input type="text" asp-for=@Model.Reservation.Notes />
+
+        <input type="submit" value="Submit" asp-action="CheckEdit" />
+    </form>
+</div>

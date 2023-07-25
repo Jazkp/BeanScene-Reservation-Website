@@ -1,0 +1,26 @@
+﻿@using BeanSceneReservationApplication.Data
+@model Reservation
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<h1>Confirmation</h1>
+<h2>Edited</h2>
+<p>Name: @Model.Person.Name</p>
+<p>Phone: @Model.Person.Phone</p>
+<p>Email: @Model.Person.Email</p>
+<p>Start Time: @Model.StartTime</p>
+<p>Duration: @Model.Duration</p>
+<p>Status: @Model.Status.Name</p>
+<p>Notes: @Model.Notes</p>
+
+@{
+    string tables = null;
+    foreach(var item in Model.AssignedTables)
+    {
+        tables += item.Name + " ";
+    }
+}
+<p>Tables: @tables</p>
+
+<button> <a asp-controller="Home" asp-action="Index">Go Back</a></button>

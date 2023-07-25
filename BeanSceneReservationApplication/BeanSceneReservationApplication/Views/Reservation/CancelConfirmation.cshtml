@@ -1,0 +1,17 @@
+﻿@using BeanSceneReservationApplication.Data
+@model Reservation
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<h1 style="color:red">Canceled</h1>
+<h3>Thank you for making a reservation with us! Here are the details of the reservation.</h3>
+<p>Name: @Model.PersonName</p>
+<p>Phone: @Model.PersonPhone</p>
+<p>Start Time: @Model.StartTime</p>
+<p>Duration: @Model.Duration</p>
+<p>Status: @Model.Status.Name</p>
+<p>Notes: @Model.Notes</p>
+
+<p>Someone from Bean Scene will contact you shortly to confirm your reservation. </p>
+<button> <a asp-controller="Home" asp-action="Index">Go Back</a></button>

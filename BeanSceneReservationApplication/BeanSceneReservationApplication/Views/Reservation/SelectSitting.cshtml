@@ -1,0 +1,21 @@
+﻿@using BeanSceneReservationApplication.Data
+@model IEnumerable<Sitting>
+
+@foreach(var s in Model){
+    var currentCapacity = s.Capacity;
+    foreach(var r in s.Reservations){
+        if (r.Status.Id!=3)
+        {
+            currentCapacity -= r.Guests;
+        }
+    }
+    if(currentCapacity>0){
+        <div style="border:1px solid green; padding:5px; margin:5px">
+            <h1>@s.Name</h1>
+            <h2>@s.SittingType.Name</h2>
+            <p style="color: red">@currentCapacity seats left</p>
+            <p>@s.StartTime ~ @s.EndTime</p>
+            <a href="~/BeanScene/@s.Id/Create">Select</a>
+        </div>
+    }
+}
